@@ -11,6 +11,6 @@ url to use for the upload, then uploads the file to s3 using the signed url. Not
 
 The first example also works behind an http proxy.
 
-The second example reads a file and puts it to an S3 bucket, but for some reason does not work properly behind an http proxy.
+The second example (node-upload.js) reads a file and puts it to an S3 bucket. This version now fully supports an HTTP proxy.
 
 

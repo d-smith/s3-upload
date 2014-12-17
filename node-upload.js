@@ -8,15 +8,14 @@ AWS.config.update({region: 'us-east-1'});
 AWS.config.loadFromPath('../config.json');
 
 var httpProxy = process.env.http_proxy;
-if(httpProxy !== null) {
-	console.log('set http proxy to ' + httpProxy);
-	AWS.config.update({
-	  httpOptions: {
-	    proxy: httpProxy
-	  }
-	});
+if(httpProxy !== undefined) {
+
+  var HttpProxyAgent = require('https-proxy-agent');
+  var proxyAgent = new HttpProxyAgent(httpProxy);
+  AWS.config.httpOptions = { agent: proxyAgent };
+
 } else {
-	console.log("No proxy settings found");
+  console.log("No proxy settings found");
 }
 
 fs.readFile("./image.jpg", function(error, data) {
@@ -41,4 +40,3 @@ fs.readFile("./image.jpg", function(error, data) {
 		}
 	});
 });
-
